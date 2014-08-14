@@ -44,7 +44,7 @@ module MWS
 
     # No connection needs to be initialized for this call
     def self.server_time(host=DEFAULT_HOST)
-      response = HTTParty.get("https://#{host}")
+      response = HTTParty.get("https://#{host}", :verify => false)
       Time.parse(response['PingResponse']['Timestamp']['timestamp'])
     end
   end
