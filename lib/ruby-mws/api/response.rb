@@ -4,6 +4,9 @@ module MWS
     class Response < Hashie::Rash
       
       def self.parse(body, name, params)
+        unless body.is_a?(Hash)
+          body = body.to_h
+        end
         return body unless body.is_a?(Hash)
 
         rash = self.new(body)
