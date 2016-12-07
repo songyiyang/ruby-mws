@@ -1,15 +1,15 @@
 # This class serves as a parent class to the API classes.
 # It shares connection handling, query string building, ?? among the models.
 
-module MWS
+module RubyMWS
   module API
 
     class Base
       include HTTParty
-      parser MWS::API::BinaryParser
+      parser RubyMWS::API::BinaryParser
       debug_output $stderr  # only in development
       #format :xml
-      headers "User-Agent"   => "ruby-mws/#{MWS::VERSION} (Language=Ruby/1.9.3-p0)"
+      headers "User-Agent"   => "ruby-mws/#{RubyMWS::VERSION} (Language=Ruby/1.9.3-p0)"
       headers "Content-Type" => "text/xml"
 
       attr_accessor :response
@@ -37,7 +37,7 @@ module MWS
         params = [default_params(name), params, options, @connection.to_hash].inject :merge       
 
         params[:lists] ||= {}
-        if self.class.to_s == "MWS::API::Product"
+        if self.class.to_s == "RubyMWS::API::Product"
           params[:marketplace_id] = @connection.marketplace_id
         else
           params[:lists][:marketplace_id] = "MarketplaceId.Id"
